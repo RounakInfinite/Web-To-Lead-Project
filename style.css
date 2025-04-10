@@ -30,3 +30,9 @@ form{
     border: 2px solid black;
     padding: 15px;
 }
+
+.g-recaptcha{
+    margin-top: 15px;
+    display: flex;
+    justify-self: center;
+}

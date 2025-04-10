@@ -7,6 +7,7 @@
     <title>Web to Lead Form</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
@@ -17,6 +18,8 @@
         <input type=hidden name="oid" value="00D2w00000Qu5Cw">
         <input type=hidden name="retURL" value=" https://rounakinfinite.github.io/Web-To-Lead-Project/thanks.html">
         <input type=hidden name="Lead_Date__c" class="outputdate">
+        <input type=hidden name='captcha_settings'
+            value='{"keyname":"WebToLeadForm","fallback":"true","orgId":"00D2w00000Qu5Cw","ts":""}'>
 
         <label for="first_name">First Name</label><input id="first_name" maxlength="40" name="first_name" size="20"
             type="text" required="true" /><br>
@@ -30,6 +33,8 @@
         <!-- Lead Date:<span class="dateInput dateOnlyInput"><input id="00NIg000000wMZy" name="00NIg000000wMZy" size="12"
                 type="text" /></span><br> -->
         <label for="lead_date">Lead Date</label><input size="12" type="date" class="inputdate" /><br>
+
+        <div class="g-recaptcha" data-sitekey="6Lf6DRIrAAAAAJatvHWgU2BavcvUed43hCuTXnI1"></div><br>
 
         <input type="submit" name="submit" class="submit">
 
