@@ -21,6 +21,7 @@ function timestamp() {
     elems["ts"] = JSON.stringify(new Date().getTime());
     document.getElementsByName("captcha_settings")[0].value =
       JSON.stringify(elems);
+      console.log("Captcha settings updated with timestamp.");
   }
 }
 setInterval(timestamp, 500);
