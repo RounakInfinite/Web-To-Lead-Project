@@ -7,6 +7,7 @@ function beforesubmit(event) {
 
     let formattedDate = new Date(inputdate.value).toLocaleDateString("en-IN");
     outputdate.value = formattedDate;
+    console.log("Output Date : ", outputdate.value); // date (en_IN) --> String
   } else {
     alert("Please verify the captcha box first.");
     event.preventDefault(); // Prevent form submission
