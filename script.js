@@ -1,34 +1,28 @@
 let captchachecked = false;
+
 function beforesubmit(event) {
   if (!captchachecked) {
-    event.preventDefault(); // Prevent form submission
     alert("Please verify the captcha box first.");
+    event.preventDefault();
     return;
   }
-    let inputdate = document.querySelector(".inputdate");
-    let outputdate = document.querySelector(".outputdate");
-    console.log("Input Date : ", inputdate.value); // String --> date (en_IN)
 
-    //let formattedDate = new Date(inputdate.value).toLocaleDateString("en-IN");
-    let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
-    outputdate.value = formattedDate;
-    console.log("Output Date : ", outputdate.value); // date (en_IN) --> String
+  let inputdate = document.querySelector(".inputdate");
+  console.log("Input Date : ", inputdate.value);
 
-    // 🛠 Wait for DOM to update
-    setTimeout(() => {
-      event.target.submit(); // Now manually submit the form
-    }, 0);
+  // Format date properly
+  let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
+  inputdate.value = formattedDate;
+
+  console.log("Formatted Date : ", inputdate.value);
 }
+
 function timestamp() {
   var response = document.getElementById("g-recaptcha-response");
   if (response == null || response.value.trim() == "") {
-    var elems = JSON.parse(
-      document.getElementsByName("captcha_settings")[0].value
-    );
+    var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
     elems["ts"] = JSON.stringify(new Date().getTime());
-    document.getElementsByName("captcha_settings")[0].value =
-      JSON.stringify(elems);
-      //console.log("Captcha settings updated with timestamp.");
+    document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
   }
 }
 setInterval(timestamp, 500);
