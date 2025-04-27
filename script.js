@@ -2,44 +2,53 @@ let captchachecked = false;
 
 function beforesubmit(event) {
     if (captchachecked) {
-        // Get the input date and the hidden output date field
         let inputdate = document.querySelector(".inputdate");
         let outputdate = document.querySelector(".outputdate");
 
-        // Check if inputdate and outputdate are valid
+        // Check if both inputdate and outputdate elements exist in the DOM
         if (inputdate && outputdate) {
-            // Log the input value to console for debugging
-            console.log("Input Date : ", inputdate.value); // String --> date (en_IN)
+            console.log("Input Date: ", inputdate.value); // Log the selected date
 
-            // Format the date to ISO format (YYYY-MM-DD)
+            // Validate the input date (it should not be empty)
+            if (inputdate.value === "") {
+                alert("Please select a Lead Date.");
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
+
+            // Format the date to the required format (YYYY-MM-DD)
             let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
-            
-            // Populate the hidden field with formatted date
-            outputdate.value = formattedDate;
 
-            // Log the output date to console for debugging
-            console.log("Output Date : ", outputdate.value); // date (en_IN) --> String
+            // Set the formatted date into the hidden field
+            outputdate.value = formattedDate;
+            console.log("Formatted Output Date: ", outputdate.value); // Log the formatted output date
         } else {
-            console.error("Date fields are missing.");
+            console.error("Date fields are missing in the form.");
         }
     } else {
+        // If captcha is not verified, prevent form submission
         alert("Please verify the captcha box first.");
         event.preventDefault(); // Prevent form submission
     }
 }
 
+// Function to update timestamp for captcha settings (this is a workaround for captcha time-based validation)
 function timestamp() {
     var response = document.getElementById("g-recaptcha-response");
     if (response == null || response.value.trim() == "") {
-        var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
+        var elems = JSON.parse(
+            document.getElementsByName("captcha_settings")[0].value
+        );
         elems["ts"] = JSON.stringify(new Date().getTime());
-        document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
+        document.getElementsByName("captcha_settings")[0].value =
+            JSON.stringify(elems);
     }
 }
 
-// Check captcha status every 500ms
+// Continuously update the timestamp for the captcha settings
 setInterval(timestamp, 500);
 
+// Set captcha success flag when the captcha is verified
 function captchasuccess() {
     captchachecked = true;
 }
