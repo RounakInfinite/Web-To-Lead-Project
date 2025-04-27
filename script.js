@@ -9,6 +9,11 @@ function beforesubmit(event) {
     let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
     outputdate.value = formattedDate;
     console.log("Output Date : ", outputdate.value); // date (en_IN) --> String
+    // 🛠 Wait for DOM to update
+    setTimeout(() => {
+      event.target.submit(); // Now manually submit the form
+    }, 0);
+
   } else {
     alert("Please verify the captcha box first.");
     event.preventDefault(); // Prevent form submission
