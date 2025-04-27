@@ -8,18 +8,24 @@ function beforesubmit(event) {
   }
 
   let inputdate = document.querySelector(".inputdate");
+  let outputdate = document.querySelector(".outputdate");
+
   console.log("Input Date : ", inputdate.value);
 
-  // Format date properly
-  let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
-  inputdate.value = formattedDate;
-
-  console.log("Formatted Date : ", inputdate.value);
+  if (inputdate.value) {
+    // Format date to yyyy-MM-dd
+    let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
+    outputdate.value = formattedDate;
+    console.log("Formatted Lead Date to submit:", outputdate.value);
+  } else {
+    alert("Please select a lead date.");
+    event.preventDefault();
+  }
 }
 
 function timestamp() {
   var response = document.getElementById("g-recaptcha-response");
-  if (response == null || response.value.trim() == "") {
+  if (response == null || response.value.trim() === "") {
     var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
     elems["ts"] = JSON.stringify(new Date().getTime());
     document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems);
