@@ -5,7 +5,8 @@ function beforesubmit(event) {
     let outputdate = document.querySelector(".outputdate");
     console.log("Input Date : ", inputdate.value); // String --> date (en_IN)
 
-    let formattedDate = new Date(inputdate.value).toLocaleDateString("en-IN");
+    //let formattedDate = new Date(inputdate.value).toLocaleDateString("en-IN");
+    let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
     outputdate.value = formattedDate;
     console.log("Output Date : ", outputdate.value); // date (en_IN) --> String
   } else {
