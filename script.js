@@ -1,6 +1,10 @@
 let captchachecked = false;
 function beforesubmit(event) {
-  if (captchachecked) {
+  if (!captchachecked) {
+    event.preventDefault(); // Prevent form submission
+    alert("Please verify the captcha box first.");
+    return;
+  }
     let inputdate = document.querySelector(".inputdate");
     let outputdate = document.querySelector(".outputdate");
     console.log("Input Date : ", inputdate.value); // String --> date (en_IN)
@@ -9,15 +13,13 @@ function beforesubmit(event) {
     let formattedDate = new Date(inputdate.value).toISOString().slice(0, 10);
     outputdate.value = formattedDate;
     console.log("Output Date : ", outputdate.value); // date (en_IN) --> String
+    
     // 🛠 Wait for DOM to update
     setTimeout(() => {
       event.target.submit(); // Now manually submit the form
     }, 0);
 
-  } else {
-    alert("Please verify the captcha box first.");
-    event.preventDefault(); // Prevent form submission
-  }
+  
 }
 function timestamp() {
   var response = document.getElementById("g-recaptcha-response");
